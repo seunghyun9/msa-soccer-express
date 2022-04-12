@@ -12,6 +12,7 @@ const nodes = ['basic','board','user'] // ['admin','basic','board','game','todo'
 for(const leaf of nodes){
   require(`${APP}/${leaf}.route`)({url:`/api/${leaf}`,app})
 } // 파라미터값을 모두 확인한다. array문이라서for -of문 bur json이면 for in사용
+// git 브랜치 
 const corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 200 
