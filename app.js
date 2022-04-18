@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //서플라이 
 app.use(cors()); 
 const APP = './app/routes'
-const nodes = ['basic','board','user'] // ['admin','basic','board','game','todo','user']
+const nodes = ['basic','board','user','todo'] // ['admin','basic','board','game','todo','user']
 for(const leaf of nodes){
   require(`${APP}/${leaf}.route`)({url:`/api/${leaf}`,app})
 } // 파라미터값을 모두 확인한다. array문이라서for -of문 bur json이면 for in사용
