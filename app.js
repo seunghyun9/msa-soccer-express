@@ -3,6 +3,8 @@ const cors = require('cors') // 순수함수 cors > cors
 const express = require('express'); //순수함수 express > express
 const app = express();
 const { port, MONGO_URI } = process.env;
+const tokenRouter = require('./app/routes/token');
+app.use('/token', tokenRouter);
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //서플라이 
