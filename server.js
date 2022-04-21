@@ -3,6 +3,7 @@ import express from 'express';
 import db from './app/models/index.js'
 import indexRouter from './app/routes/index.js';
 import apiRouter from  './app/routes/api.js'
+import userRouter from "./app/routes/user.js"
 import ResponseService from "./app/services/responseService.js"
 
 async function startServer(){
@@ -15,6 +16,7 @@ async function startServer(){
   app.use(express.json());
   app.use('/', indexRouter)
   app.use('/api',apiRouter)
+  app.use("/user", userRouter);
   const apiResponse = new ResponseService()
 db.mongoose
   .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
