@@ -1,6 +1,7 @@
 import express from "express"
 import cors from 'cors'
 import dotenv from 'dotenv'
+import BasicService from "../services/basic.js"
 dotenv.config()
 const corsOptions = {
     origin: process.env.ORIGIN,
@@ -9,9 +10,9 @@ const corsOptions = {
 const app = express()
 app.use(cors());
 
+app.post('/bmi', cors(corsOptions),(req, res) => {
+    const service = new BasicService()
+    res.status(200).json(service.getBmi(req, res))
+})
 
-
-
-// const { getBmi, getCalc } = require('../controllers/basic.controller');
-// module.exports = x => {x.app.post(`${x.url}/bmi`, getBmi)
-//                        x.app.post(`${x.url}/calc`, getCalc)}
+export default app

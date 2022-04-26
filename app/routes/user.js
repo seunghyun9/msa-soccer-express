@@ -1,8 +1,13 @@
 import express from "express"
 import cors from 'cors'
 import dotenv from 'dotenv'
-import UserService from '../services/userService.js'
+import passport from 'passport'
+import UserService from '../services/user.js'
 dotenv.config()
+const mongoUri = process.env.MONGO_URI
+const port = process.env.PORT
+const jwtSecret = process.env.JWT_SECERT
+const origin = process.env.ORIGIN
 const corsOptions = {
     origin: process.env.ORIGIN,
     optionsSuccessStatus: 200
@@ -17,20 +22,18 @@ app.use(function (_req, res, next) {
     next();
 });
 app.post('/join', cors(corsOptions), (req, res) => {
-    new UserService().join(req, res)
+    UserService().join(req, res)
 })
-app.post('/login', cors(corsOptions), (req, res, next) => {
-    new UserService().login(req, res)
-    next()
+app.post('/login', cors(corsOptions), (req, res) => {
+    UserService().login(req, res)
 })
-
+app.get(
+    '/logout',
+    passport.authenticate('jwt', {session: false}),
+    function (req, res) {
+        UserService().logout(req, res)
+        req.logout();
+        res.json({msg: 'LOGOUT'});
+    }
+);
 export default app
-// const { signup, userlist,profile,login } = require('../controllers/user.controller');
-// const { verifyToken } = require('./middleware');
-// module.exports = x => {
-//     x.app.post(`${x.url}/signup`, signup) ;
-//     x.app.post(`${x.url}/login`,verifyToken,login); // 로그인은 포스트 형식이여야한다. (보안때문)
-//     x.app.get(`${x.url}/user-list`, userlist) ;
-//     x.app.get(`${x.url}/profile/:id`, profile);
-// }
-
