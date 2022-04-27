@@ -16,3 +16,4 @@ app.post('/bmi', cors(corsOptions),(req, res) => {
 })
 
 export default app
+
